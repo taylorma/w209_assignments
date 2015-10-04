@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title>Assignment 3</title>
+</head>
+<body>
+	<div id="mydiv">
+		<p>W209 Assignment 3:Visualization with D3</p>
+		<p>Taylor Ma</p>
+		<p>sleep hour for 7 consecutive days</p>
+	</div>
+	<svg id="hw3Vis" width="1000" height="500"></svg>
+
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		d3.select("p").style('color','blue').style('font-size','25px')
+		var data = [{
+		    "sleep_hour": "9",
+		    "day": "1"
+		}, {
+		    "sleep_hour": "7",
+		    "day": "2"
+		}, {
+		    "sleep_hour": "6.5",
+		    "day": "3"
+		}, {
+		    "sleep_hour": "7",
+		    "day": "4"
+		}, {
+		    "sleep_hour": "8",
+		    "day": "5"
+		}, {
+		    "sleep_hour": "10",
+		    "day": "6"
+		}, {
+		    "sleep_hour": "9",
+		    "day": "7"
+		}];
+
+		var vis = d3.select("#hw3Vis"),
+	    WIDTH = 600,
+	    HEIGHT = 500,
+	    MARGINS = {
+	        top: 25,
+	        right: 25,
+	        bottom: 25,
+	        left: 25
+	    },
+
+	    xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([1,10]),
+	    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0,12]),
+
+	    xAxis = d3.svg.axis().scale(xScale),
+		yAxis = d3.svg.axis().scale(yScale).orient("left");
+	
+		var drawLine = d3.svg.line()
+			.x(function(d) {return xScale(d.day);})
+			.y(function(d) {return yScale(d.sleep_hour);});
+
+		vis.append("svg:g").attr("transform", "translate(0," + (HEIGHT - 25) + ")").call(xAxis);
+		vis.append("svg:g").attr("transform", "translate(" + (MARGINS.left) + ",0)").call(yAxis);
+		vis.append('svg:path').attr('d', drawLine(data)).attr('stroke-width', 3).attr('stroke', 'red').attr('fill','none')
+		</script>
+
+</body>
+</html>

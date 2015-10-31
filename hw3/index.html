@@ -7,16 +7,19 @@
 		<p>W209 Assignment 3:Visualization with D3</p>
 		<p>Taylor Ma</p>
 		<p>sleep hour for 7 consecutive days</p>
+		<p>There are two ways to plot new data:
+			1. Click the 'Add New Data' button below
+			2. Click on the plot</p>
 	</div>
 
-	<!-- HW5 code start -->
+	<!-- HW5 CODE START -->
 	<div id="option">
     <input name="updateButton" 
                  type="button" 
                 value="Add New Data" 
                 onclick="updateData()" />
 	</div>
-	<!-- HW5 code end -->
+	<!-- HW5 CODE END -->
 
 	<svg id="hw3Vis" width="1000" height="500"></svg>
 
@@ -73,7 +76,8 @@
 		}
 
 		evalLine(data, 'red')
-	//HW5 code below
+		//HW5 CODE START
+		//Task 1: Plot new line based on button click
 		function updateData() {
 			var data_new = [{
 						    "sleep_hour": "5",
@@ -103,6 +107,43 @@
 	            .duration(750)
 				.attr('d', evalLine(data_new,'green'));
 		}
+
+		//Task 2: 
+
+    	d3.select("#hw3Vis")
+    		.on("click", addNewData);
+
+    	function addNewData() {
+			var data_new2 = [{
+						    "sleep_hour": "6.3",
+						    "day": "1"
+						}, {
+						    "sleep_hour": "5.4",
+						    "day": "2"
+						}, {
+						    "sleep_hour": "8.5",
+						    "day": "3"
+						}, {
+						    "sleep_hour": "6.2",
+						    "day": "4"
+						}, {
+						    "sleep_hour": "7.5",
+						    "day": "5"
+						}, {
+						    "sleep_hour": "6.4",
+						    "day": "6"
+						}, {
+						    "sleep_hour": "8.9",
+						    "day": "7"
+						}];
+		    // Select the section we want to apply our changes to
+		    var vis = d3.select("#hw3Vis").transition();
+	        vis.select("path")   // change the line
+	            .duration(750)
+				.attr('d', evalLine(data_new2,'blue'));
+		}
+
+		//HW5 CODE END
 	</script>
 </body>
 </html>
